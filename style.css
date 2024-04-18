@@ -1,0 +1,84 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+  color: #333;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; /* Reset default margin */
+}
+
+.game-container {
+  background: rgba(255, 255, 255, 0.95); /* Light background for content */
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+h1 {
+  font-size: 2rem;
+  color: #6a89cc; /* Subtle blue */
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+.input-style, .btn-start, .btn-join, .btn-next, .btn-discuss, .btn-vote {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out; /* Smooth transitions for interactive elements */
+}
+
+.input-style {
+  background: #f7f7f7; /* Light grey background for better visibility */
+  color: #333;
+  border: 1px solid #ddd; /* Subtle border for inputs */
+}
+
+.btn-start, .btn-join, .btn-next, .btn-discuss, .btn-vote {
+  cursor: pointer;
+  background: #b8a9c9; /* Soft purple */
+  color: #fff;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth background color change and transform */
+}
+
+.btn-start:hover, .btn-join:hover, .btn-next:hover, .btn-discuss:hover, .btn-vote:hover {
+  background: #9887b0; /* Darker purple */
+  border-color: #fff; /* Highlight with white border */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.player-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.player-list li {
+  background: #ece9f1; /* Very light purple */
+  color: #333;
+  padding: 5px;
+  margin-top: 5px;
+  border-radius: 3px;
+}
+
+.hidden {
+  display: none;
+}
+
+.eliminated {
+  text-decoration: line-through;
+  color: #828282; /* Greyed out for less intensity */
+}

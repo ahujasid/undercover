@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Undercover Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  
+<body>
+  <div class="game-container">
+    <h1>Undercover Game</h1>
+    
+    <div id="game-settings" class="game-settings">
+      <label for="num-civilians">Number of Civilians:</label>
+      <input type="number" id="num-civilians" min="1" max="20" value="5" class="input-style">
+      
+      <label for="num-imposters">Number of Imposters:</label>
+      <input type="number" id="num-imposters" min="1" max="5" value="2" class="input-style">
+      
+      <button id="start-game" class="btn-start">Start Game</button>
+    </div>
+    
+    <div id="player-setup" class="hidden">
+      <form id="player-form">
+        <label for="player-name">Enter your name:</label>
+        <input type="text" id="player-name" required class="input-style">
+        <button type="submit" class="btn-join">Join Game</button>
+      </form>
+    </div>
+
+    <div id="player-list" class="player-list">
+      <ul id="player-list-items"></ul>
+    </div>
+    
+    <div id="player-word" class="hidden">
+      <p><span id="current-player"></span>, your word is: <span id="word"></span></p>
+      <button id="next-player" class="btn-next">Next Player</button>
+    </div>
+    
+    <div id="game-actions" class="hidden">
+      <button id="start-discussion" class="btn-discuss">Start Discussion</button>
+      <button id="vote-out" class="btn-vote">Vote Out</button>
+    </div>
+    
+    <div id="game-status" class="game-status">
+      <!-- Game status will be displayed here -->
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
