@@ -14,6 +14,7 @@ const wordList = [
   let totalPlayers = 0;
   let votedPlayer = null;
   let votingPhase = false;
+  let numMrWhite = 0;
   
   const playerForm = document.getElementById('player-form');
   const playerNameInput = document.getElementById('player-name');
@@ -28,7 +29,8 @@ const wordList = [
   startGameButton.addEventListener('click', () => {
     numCivilians = parseInt(numCiviliansInput.value);
     numImposters = parseInt(numImpostersInput.value);
-    totalPlayers = numCivilians + numImposters;
+    numMrWhite = parseInt(document.getElementById('num-mr-white').value);
+    totalPlayers = numCivilians + numImposters + numMrWhite;
     if (totalPlayers > 0) {
       document.getElementById('game-settings').classList.add('hidden');
       document.getElementById('player-setup').classList.remove('hidden');
@@ -44,8 +46,7 @@ const wordList = [
     if (playerName !== '') {
       players.push({ name: playerName, role: '' });
       playerNameInput.value = '';
-      assignRole();
-      assignWords();
+      assignRolesAndWords();
       showPlayerWord();
     }
   });
@@ -71,13 +72,26 @@ const wordList = [
 
 
   function confirmVote(player) {
+    
     if (confirm(`Are you sure you want to vote out ${player.name}?`)) {
       player.eliminated = true;
+      if (player.role === 'Mr. White') {
+        let guess = prompt("Mr. White, guess the word:");
+        if (guess.toLowerCase() === civilianWord.toLowerCase()) {
+          alert("Mr. White won the game!");
+          promptResetGame();
+        }
+        else{
+          alert("Wrong guess.");
+        }
+      }
+      else{
+        checkWinCondition();
+      }
       updatePlayerList();
-      votingPhase = false;
-      checkWinCondition();
     }
   }
+  
 
 
   function setWords(){
@@ -145,11 +159,24 @@ function checkWinCondition() {
   }
 
   
-function assignRole() {
-  const shuffledRoles = shuffleRoles(numCivilians, numImposters);
-  const player = players[players.length - 1];
-  player.role = shuffledRoles.pop();
-}
+  function assignRolesAndWords() {
+    let roles = [];
+    for (let i = 0; i < numCivilians; i++) roles.push('Civilian');
+    for (let i = 0; i < numImposters; i++) roles.push('Imposter');
+    for (let i = 0; i < numMrWhite; i++) roles.push('Mr. White');
+  
+    // Shuffle and assign roles
+    shuffle(roles);
+    players.forEach((player, index) => {
+      player.role = roles[index];
+      if (player.role === 'Mr. White') {
+        player.word = 'You are Mr. White. No word assigned.';
+      } else {
+        // Assign word based on role as before
+        player.word = (player.role === 'Civilian') ? civilianWord : imposterWord;
+      }
+    });
+  }
 
 function shuffleRoles(numCivilians, numImposters) {
     const roles = [];
@@ -207,16 +234,6 @@ function startGame() {
   // Hide the game actions initially
   document.getElementById('game-actions').classList.add('hidden');
   
-  function assignWords() {
-
-    players.forEach(player => {
-      if (player.role === 'Civilian') {
-        player.word = civilianWord;
-      } else if (player.role === 'Imposter') {
-        player.word = imposterWord;
-      }
-    });
-  }
   
   function checkGameStart() {
     if (numCivilians === 0 && numImposters === 0) {
